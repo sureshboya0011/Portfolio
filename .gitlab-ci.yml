@@ -1,11 +1,10 @@
 # The Docker image that will be used to build your app
 pages:
-  stage : deploy
   script:
-    - mk dir public 
-    - cp -r * public
+    - mkdir -p public
+    - rsync -av --exclude=public ./ public
   artifacts:
-     paths:
+      paths:
        - public
   only:
-   - main
+    - main     
