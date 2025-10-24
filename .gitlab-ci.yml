@@ -1,10 +1,19 @@
 # The Docker image that will be used to build your app
-pages:
+stages:
+  - build
+  - deploy
+build:
+  stage: build
   script:
+    - echo "Starting build..."
     - mkdir -p public
-    - rsync -av --exclude=public ./ public
-  artifacts:
-      paths:
-       - public
-  only:
-    - main    
+    - echo "Build complete" > public/index.html
+    - cat public/index.html
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying application..."
+    - mkdir -p deployed
+    - cp -r public/* deployed/
+    - echo "Deployement complete"   
