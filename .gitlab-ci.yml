@@ -8,7 +8,10 @@ build:
     - echo "Starting build..."
     - mkdir -p public
     - echo "Build complete" > public/index.html
-    - cat public/index.html
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 hour
 
 deploy:
   stage: deploy
