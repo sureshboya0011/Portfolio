@@ -42,6 +42,52 @@ function PageTransition(){
         element.classList.toggle('light-mode');
     })
 
+    // Contact button click handler
+    const contactBtn = document.querySelector('.contact-btn');
+    if(contactBtn) {
+        contactBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove active from all sections
+            sections.forEach((section) => {
+                section.classList.remove('active');
+            });
+            
+            // Add active to contact section
+            document.getElementById('contact').classList.add('active');
+            
+            // Update control buttons
+            sectBtn.forEach((btn) => {
+                btn.classList.remove('active-btn');
+                if(btn.dataset.id === 'contact') {
+                    btn.classList.add('active-btn');
+                }
+            });
+        });
+    }
+
+    // Contact form submission - opens email client
+    const contactForm = document.getElementById('contactForm');
+    if(contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('senderName').value;
+            const email = document.getElementById('senderEmail').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            const mailtoLink = `mailto:sureshboya0011@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            
+            window.location.href = mailtoLink;
+            
+            // Clear form
+            contactForm.reset();
+            
+            alert('Opening your email client. If it doesn\'t open, please email directly to sureshboya0011@gmail.com');
+        });
+    }
+
 }
 
 PageTransition();
